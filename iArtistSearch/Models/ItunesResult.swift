@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct ItunesResult : Codable {
     let resultCount: Int
     let results: [Search]
@@ -28,5 +29,6 @@ struct Search : Codable, Identifiable {
     
     static var sampleSearch: Search = ItunesResult.sampleResults.results[0]
 }
+
 
 

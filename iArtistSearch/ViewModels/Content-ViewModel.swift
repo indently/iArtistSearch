@@ -7,10 +7,18 @@
 
 import Foundation
 
+enum LoadingState {
+    case finished, loading
+}
+
 extension ContentView {
     final class ViewModel: ObservableObject {
-        @Published var searchText = "linken park"
+        @Published var searchText: String = "linken park"
+        @Published var apiState: LoadingState = .finished
         @Published var searchResults = [Search]()
+        
+        @Published var displayingError = false
+        @Published var errorMessage: String = ""
         
         init() {
             fetchSearchResults()
@@ -18,6 +26,7 @@ extension ContentView {
         
         
         func fetchSearchResults(limit: Int = 25) {
+            self.apiState = .loading
             // Formats the string the user entered
             let trimmedSearch = self.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
             let locSearch = trimmedSearch.replacingOccurrences(of: " ", with: "+")
@@ -29,11 +38,14 @@ extension ContentView {
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
                 DispatchQueue.main.async {
                     self.searchResults = data.results
+                    self.apiState = .finished
                 }
-                //print(data)
                 
             } failure: { error in
-                print(error)
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.displayingError = true
+                }
             }
         }
     }

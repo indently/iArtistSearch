@@ -8,7 +8,6 @@
 import Foundation
 
 func formatDate(date: String) -> String {
-
     let utcISODateFormatter = ISO8601DateFormatter()
     // Parsing a string timestamp representing a date
     let dateString = date

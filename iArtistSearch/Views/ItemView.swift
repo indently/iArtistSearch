@@ -38,9 +38,11 @@ struct ItemView: View {
                 Text("\(search.trackName)")
                     .font(.title3)
                     .bold()
+                    .lineLimit(1)
                 Text("\(search.artistName)")
                     .font(.subheadline)
-                
+                Text("\(search.trackTimeMillis/1000/60) min")
+                    .font(.subheadline)
             }
         }
     }

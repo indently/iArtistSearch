@@ -16,7 +16,9 @@ struct ContentView: View {
                 HStack(spacing: 20) {
                     TextField("Search for something here", text: $vm.searchText)
                         .textFieldStyle(.roundedBorder)
-                       
+                        .onTapGesture {
+                            vm.searchText = ""
+                        }
                     Button() {
                         vm.fetchSearchResults()
                     } label: {
@@ -36,13 +38,15 @@ struct ContentView: View {
                             .foregroundColor(.black)
                             .padding(.horizontal)
                         }
-                        
                     }
                 }
             }
-            .listStyle(.plain)
-            .navigationTitle("iTunes Search")
-            
+            .alert("\(vm.errorMessage)", isPresented: $vm.displayingError) {
+                Button("Got it!") {
+                    vm.fetchSearchResults()
+                }
+            }
+            .navigationTitle("iTunes Search") 
         }
     }
 }
