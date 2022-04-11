@@ -18,6 +18,7 @@
 		7A72465C280413AA0043BF6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A72465B280413AA0043BF6C /* Preview Assets.xcassets */; };
 		7A724663280413C60043BF6C /* ItunesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A724662280413C60043BF6C /* ItunesResult.swift */; };
 		7AAF9C4B28043A4C000F5C5B /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF9C4A28043A4C000F5C5B /* DescriptionView.swift */; };
+		7AD5BFC728046F280076512A /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD5BFC628046F280076512A /* SearchBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		7A72465B280413AA0043BF6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7A724662280413C60043BF6C /* ItunesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesResult.swift; sourceTree = "<group>"; };
 		7AAF9C4A28043A4C000F5C5B /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		7AD5BFC628046F280076512A /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				7A724656280413A80043BF6C /* ContentView.swift */,
-				7A0C4BC0280429AC00F4EC69 /* ItemView.swift */,
 				7AAF9C4A28043A4C000F5C5B /* DescriptionView.swift */,
+				7A0C4BC0280429AC00F4EC69 /* ItemView.swift */,
+				7AD5BFC628046F280076512A /* SearchBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A724657280413A80043BF6C /* ContentView.swift in Sources */,
+				7AD5BFC728046F280076512A /* SearchBarView.swift in Sources */,
 				7A0C4BC1280429AC00F4EC69 /* ItemView.swift in Sources */,
 				7A0C4BBD2804218E00F4EC69 /* JSON.swift in Sources */,
 				7A0C4BC92804321400F4EC69 /* DateFormatter.swift in Sources */,

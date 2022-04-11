@@ -13,20 +13,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                HStack(spacing: 20) {
-                    TextField("Search for something here", text: $vm.searchText)
-                        .textFieldStyle(.roundedBorder)
-                        .onTapGesture {
-                            vm.searchText = ""
-                        }
-                    Button() {
-                        vm.fetchSearchResults()
-                    } label: {
-                        Label("", systemImage: "magnifyingglass")
-                            .foregroundColor(.blue)
-                    }
+                SearchBarView(searchText: $vm.searchText) {
+                    vm.fetchSearchResults()
                 }
-                .padding()
                 
                 LazyVStack {
                     ForEach(vm.searchResults) { result in
@@ -35,18 +24,18 @@ struct ContentView: View {
                                 ItemView(search: result)
                                 Divider()
                             }
-                            .foregroundColor(.black)
                             .padding(.horizontal)
                         }
+                        .buttonStyle(PlainButtonStyle()) 
                     }
                 }
             }
+            .navigationTitle("iTunes Search")
             .alert("\(vm.errorMessage)", isPresented: $vm.displayingError) {
                 Button("Got it!") {
                     // Add code here to fix the issue.
                 }
             }
-            .navigationTitle("iTunes Search") 
         }
     }
 }
