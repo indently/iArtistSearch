@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum LoadingState {
     case finished, loading
@@ -27,6 +28,12 @@ extension ContentView {
         
         func fetchSearchResults(limit: Int = 25) {
             self.apiState = .loading
+            
+            if self.searchText == "" {
+                self.displayingError = true
+                self.errorMessage = "Please insert a song / artist name."
+                return
+            }
             // Formats the string the user entered
             let trimmedSearch = self.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
             let locSearch = trimmedSearch.replacingOccurrences(of: " ", with: "+")
@@ -37,8 +44,11 @@ extension ContentView {
             // Attempts to create an API request, otherwise returns a failure.
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
                 DispatchQueue.main.async {
-                    self.searchResults = data.results
-                    self.apiState = .finished
+                    withAnimation {
+                        self.searchResults = data.results
+                        self.apiState = .finished
+                    }
+                    
                 }
                 
             } failure: { error in

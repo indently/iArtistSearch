@@ -9,9 +9,43 @@ import SwiftUI
 
 struct DescriptionView: View {
     let search: Search
+    let dimensions: Double = 120
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            HStack {
+                Spacer()
+                AsyncImage(url: URL(string: search.artworkUrl100)!) { image in
+                    if let image = image {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: dimensions, height: dimensions)
+                    }
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: dimensions, height: dimensions)
+                    
+                }
+                .background(.thinMaterial)
+                .cornerRadius(10)
+                .padding()
+                Spacer()
+            }
+        
+            
+            List {
+                Text("**Title**: \(search.trackName)")
+                Text("**Artist**: \(search.artistName)")
+                Text("**Release Date**: \(formatDate(date: search.releaseDate))")
+                Text("**Length**: \(search.trackTimeMillis/1000/60) minutes")
+                Text("**Genre**: \(search.primaryGenreName)")
+            }
+            .listStyle(.plain)
+            
+            
+        }
+        .padding()
     }
 }
 

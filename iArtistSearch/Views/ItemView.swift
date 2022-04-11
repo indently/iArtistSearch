@@ -36,7 +36,7 @@ struct ItemView: View {
             
             VStack(alignment: .trailing) {
                 Text("\(search.trackName)")
-                    .font(.title3)
+                    .font(.headline)
                     .bold()
                     .lineLimit(1)
                 Text("\(search.artistName)")
