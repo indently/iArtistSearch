@@ -44,10 +44,9 @@ extension ContentView {
             // Attempts to create an API request, otherwise returns a failure.
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
                 DispatchQueue.main.async {
-                    withAnimation {
-                        self.searchResults = data.results
-                        self.apiState = .finished
-                    }
+                    self.searchResults = data.results
+                    self.apiState = .finished
+                    
                     if self.searchResults.isEmpty {
                         self.errorMessage = "There were no results..."
                         self.displayingError = true
