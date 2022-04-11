@@ -27,6 +27,7 @@ struct ContentView: View {
                             .padding(.horizontal)
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .transition(.scale)
                     }
                 }
             }
@@ -40,7 +41,6 @@ struct ContentView: View {
                 ToolbarItem {
                     Button(vm.sortResults, action: vm.sortResultsAlphabetically)
                 }
-                
             }
         }
     }

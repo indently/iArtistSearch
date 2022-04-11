@@ -46,6 +46,9 @@ struct ItemView: View {
                     .font(.subheadline)
             }
         }
+        .padding()
+        .background(.thinMaterial)
+        .cornerRadius(10)
     }
 }
 

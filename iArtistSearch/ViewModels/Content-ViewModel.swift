@@ -28,14 +28,17 @@ extension ContentView {
         
         // Sorts results alphabetically
         func sortResultsAlphabetically() {
-            if self.sortResults == "aA" {
-                self.sortResults = "Aa"
-                self.searchResults = searchResults.sorted { $0.trackName.lowercased() < $1.trackName.lowercased() }
-            } else if self.sortResults == "Aa" {
-                self.sortResults = "aA"
-                self.searchResults = searchResults.sorted { $0.trackName.lowercased() > $1.trackName.lowercased() }
+            
+            withAnimation {
+                if self.sortResults == "aA" {
+                    self.sortResults = "Aa"
+                    self.searchResults = searchResults.sorted { $0.trackName.lowercased() < $1.trackName.lowercased() }
+                } else if self.sortResults == "Aa" {
+                    self.sortResults = "aA"
+                    self.searchResults = searchResults.sorted { $0.trackName.lowercased() > $1.trackName.lowercased() }
+                }
             }
-                
+            
         }
         
         func fetchSearchResults(limit: Int = 25) {
@@ -57,8 +60,11 @@ extension ContentView {
             // Attempts to create an API request, otherwise returns a failure.
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
                 DispatchQueue.main.async {
-                    self.searchResults = data.results
-                    self.apiState = .finished
+                    withAnimation {
+                        self.searchResults = data.results
+                        self.apiState = .finished
+                    }
+                    
                     
                     if self.searchResults.isEmpty {
                         self.errorMessage = "There were no results..."
