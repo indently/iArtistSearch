@@ -14,7 +14,7 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 SearchBarView(searchText: $vm.searchText) {
-                    vm.fetchSearchResults()
+                        vm.fetchSearchResults()
                 }
                 
                 LazyVStack {
@@ -26,7 +26,7 @@ struct ContentView: View {
                             }
                             .padding(.horizontal)
                         }
-                        .buttonStyle(PlainButtonStyle()) 
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
@@ -35,6 +35,12 @@ struct ContentView: View {
                 Button("Got it!") {
                     // Add code here to fix the issue.
                 }
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button(vm.sortResults, action: vm.sortResultsAlphabetically)
+                }
+                
             }
         }
     }

@@ -27,7 +27,7 @@ struct ItemView: View {
                 
             }
             .background(.thinMaterial)
-            .cornerRadius(20)
+            .cornerRadius(10)
                 Text("\(formatDate(date: search.releaseDate))")
                     .font(.subheadline)
             }
