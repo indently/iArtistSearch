@@ -32,8 +32,7 @@ struct DescriptionView: View {
                 .padding()
                 Spacer()
             }
-        
-            
+
             List {
                 Text("**Title**: \(search.trackName)")
                 Text("**Artist**: \(search.artistName)")
@@ -42,8 +41,6 @@ struct DescriptionView: View {
                 Text("**Genre**: \(search.primaryGenreName)")
             }
             .listStyle(.plain)
-            
-            
         }
         .padding()
     }

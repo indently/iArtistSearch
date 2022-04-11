@@ -25,10 +25,10 @@ extension ContentView {
             fetchSearchResults()
         }
         
-        
         func fetchSearchResults(limit: Int = 25) {
             self.apiState = .loading
             
+            // Make sure the user isn't searching nothing
             if self.searchText == "" {
                 self.displayingError = true
                 self.errorMessage = "Please insert a song / artist name."
@@ -48,9 +48,11 @@ extension ContentView {
                         self.searchResults = data.results
                         self.apiState = .finished
                     }
-                    
+                    if self.searchResults.isEmpty {
+                        self.errorMessage = "There were no results..."
+                        self.displayingError = true
+                    }
                 }
-                
             } failure: { error in
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
