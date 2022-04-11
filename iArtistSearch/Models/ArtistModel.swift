@@ -7,24 +7,22 @@
 
 import Foundation
 
-struct Result {
+struct ItunesResult : Codable {
     let resultCount: Int
-    let results: [Artist]
+    let results: [Search]
 }
 
-struct Artist {
-    let wrapperType, kind: String
-    let artistID, collectionID, trackID: Int
+struct Search : Codable, Identifiable {
+    let id = UUID()
     let artistName, collectionName, trackName, collectionCensoredName: String
-    let trackCensoredName: String
-    let artistViewURL, collectionViewURL, trackViewURL: String
-    let previewURL: String
+    let artistViewUrl, collectionViewUrl, trackViewUrl: String
+    let previewUrl: String
     let artworkUrl30, artworkUrl60, artworkUrl100: String
-    let collectionPrice, trackPrice: Int
-    let releaseDate: Date
-    let collectionExplicitness, trackExplicitness: String
+    let releaseDate: String
     let discCount, discNumber, trackCount, trackNumber: Int
     let trackTimeMillis: Int
     let country, currency, primaryGenreName: String
     let isStreamable: Bool
 }
+
+
