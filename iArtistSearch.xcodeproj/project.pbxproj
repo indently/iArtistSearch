@@ -11,6 +11,7 @@
 		7A0C4BBF280423B500F4EC69 /* Content-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0C4BBE280423B500F4EC69 /* Content-ViewModel.swift */; };
 		7A0C4BC1280429AC00F4EC69 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0C4BC0280429AC00F4EC69 /* ItemView.swift */; };
 		7A0C4BC728042A1F00F4EC69 /* Search.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A0C4BC628042A1F00F4EC69 /* Search.json */; };
+		7A0C4BC92804321400F4EC69 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0C4BC82804321400F4EC69 /* DateFormatter.swift */; };
 		7A724655280413A80043BF6C /* iArtistSearchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A724654280413A80043BF6C /* iArtistSearchApp.swift */; };
 		7A724657280413A80043BF6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A724656280413A80043BF6C /* ContentView.swift */; };
 		7A724659280413AA0043BF6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A724658280413AA0043BF6C /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 		7A0C4BBE280423B500F4EC69 /* Content-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content-ViewModel.swift"; sourceTree = "<group>"; };
 		7A0C4BC0280429AC00F4EC69 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		7A0C4BC628042A1F00F4EC69 /* Search.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Search.json; sourceTree = "<group>"; };
+		7A0C4BC82804321400F4EC69 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		7A724651280413A80043BF6C /* iArtistSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iArtistSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A724654280413A80043BF6C /* iArtistSearchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iArtistSearchApp.swift; sourceTree = "<group>"; };
 		7A724656280413A80043BF6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				7A0C4BBC2804218E00F4EC69 /* JSON.swift */,
+				7A0C4BC82804321400F4EC69 /* DateFormatter.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				7A724657280413A80043BF6C /* ContentView.swift in Sources */,
 				7A0C4BC1280429AC00F4EC69 /* ItemView.swift in Sources */,
 				7A0C4BBD2804218E00F4EC69 /* JSON.swift in Sources */,
+				7A0C4BC92804321400F4EC69 /* DateFormatter.swift in Sources */,
 				7A0C4BBF280423B500F4EC69 /* Content-ViewModel.swift in Sources */,
 				7A724663280413C60043BF6C /* ItunesResult.swift in Sources */,
 				7A724655280413A80043BF6C /* iArtistSearchApp.swift in Sources */,

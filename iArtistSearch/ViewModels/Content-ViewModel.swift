@@ -9,25 +9,28 @@ import Foundation
 
 extension ContentView {
     final class ViewModel: ObservableObject {
-        @Published var searchText = "linken+park"
+        @Published var searchText = "linken park"
         @Published var searchResults = [Search]()
         
         init() {
             fetchSearchResults()
-            
-            print(ItunesResult.sampleResults.results[0].trackName)
         }
         
         
         func fetchSearchResults(limit: Int = 25) {
-            let url = "https://itunes.apple.com/search?term=\(searchText)&entity=musicTrack&country=dk&limit=\(limit)"
+            // Formats the string the user entered
+            let trimmedSearch = self.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+            let locSearch = trimmedSearch.replacingOccurrences(of: " ", with: "+")
             
+            // Prepares the URL for the request
+            let url = "https://itunes.apple.com/search?term=\(locSearch)&entity=musicTrack&country=dk&limit=\(limit)"
+            
+            // Attempts to create an API request, otherwise returns a failure.
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
                 DispatchQueue.main.async {
                     self.searchResults = data.results
                 }
-            
-                print(data)
+                //print(data)
                 
             } failure: { error in
                 print(error)

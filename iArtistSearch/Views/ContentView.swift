@@ -12,22 +12,35 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(vm.searchResults) { result in
-                    VStack(alignment: .leading) {
-                        
-                        Text("\(result.trackName)")
-                            .font(.system(size: 20, weight: .medium))
-                        Text("\(result.artistName)")
-                        
-                        Text("\(result.artistViewUrl)")
-                        
+            ScrollView {
+                HStack(spacing: 20) {
+                    TextField("Search for something here", text: $vm.searchText)
+                        .textFieldStyle(.roundedBorder)
+                       
+                    Button() {
+                        vm.fetchSearchResults()
+                    } label: {
+                        Label("", systemImage: "magnifyingglass")
+                            .foregroundColor(.blue)
+                    }
+                }
+                .padding()
+                
+                LazyVStack {
+                    ForEach(vm.searchResults) { result in
+                        NavigationLink(destination: Text(result.trackName)) {
+                            VStack(alignment: .leading) {
+                                ItemView(search: result)
+                                Divider()
+                            }
+                            .foregroundColor(.black)
+                            .padding(.horizontal)
+                        }
                         
                     }
-                    .padding()
-                    
                 }
             }
+            .listStyle(.plain)
             .navigationTitle("iTunes Search")
             
         }
