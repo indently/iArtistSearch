@@ -14,14 +14,15 @@ extension ContentView {
         
         init() {
             fetchSearchResults()
+            
+            print(ItunesResult.sampleResults.results[0].trackName)
         }
         
         
-        func fetchSearchResults() {
-            let url = "https://itunes.apple.com/search?term=\(searchText)&entity=musicTrack&country=dk&limit=1"
+        func fetchSearchResults(limit: Int = 25) {
+            let url = "https://itunes.apple.com/search?term=\(searchText)&entity=musicTrack&country=dk&limit=\(limit)"
             
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
-                
                 DispatchQueue.main.async {
                     self.searchResults = data.results
                 }

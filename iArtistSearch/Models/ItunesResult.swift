@@ -10,6 +10,8 @@ import Foundation
 struct ItunesResult : Codable {
     let resultCount: Int
     let results: [Search]
+    
+    static var sampleResults: ItunesResult = Bundle.main.decode(file: "Search.json")
 }
 
 struct Search : Codable, Identifiable {
@@ -23,6 +25,8 @@ struct Search : Codable, Identifiable {
     let trackTimeMillis: Int
     let country, currency, primaryGenreName: String
     let isStreamable: Bool
+    
+    static var sampleSearch: Search = ItunesResult.sampleResults.results[0]
 }
 
 

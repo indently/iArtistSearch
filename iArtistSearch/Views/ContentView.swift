@@ -11,8 +11,26 @@ struct ContentView: View {
     @StateObject private var vm =  ViewModel()
     
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List {
+                ForEach(vm.searchResults) { result in
+                    VStack(alignment: .leading) {
+                        
+                        Text("\(result.trackName)")
+                            .font(.system(size: 20, weight: .medium))
+                        Text("\(result.artistName)")
+                        
+                        Text("\(result.artistViewUrl)")
+                        
+                        
+                    }
+                    .padding()
+                    
+                }
+            }
+            .navigationTitle("iTunes Search")
+            
+        }
     }
 }
 
