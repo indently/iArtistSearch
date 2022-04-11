@@ -45,6 +45,7 @@ extension ContentView {
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
                     self.displayingError = true
+                    self.apiState = .finished
                 }
             }
         }

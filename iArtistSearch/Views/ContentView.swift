@@ -30,7 +30,7 @@ struct ContentView: View {
                 
                 LazyVStack {
                     ForEach(vm.searchResults) { result in
-                        NavigationLink(destination: Text(result.trackName)) {
+                        NavigationLink(destination: DescriptionView(search: result)) {
                             VStack(alignment: .leading) {
                                 ItemView(search: result)
                                 Divider()
@@ -43,7 +43,7 @@ struct ContentView: View {
             }
             .alert("\(vm.errorMessage)", isPresented: $vm.displayingError) {
                 Button("Got it!") {
-                    vm.fetchSearchResults()
+                    // Add code here to fix the issue.
                 }
             }
             .navigationTitle("iTunes Search") 
