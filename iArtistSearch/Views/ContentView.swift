@@ -15,6 +15,7 @@ struct ContentView: View {
             ScrollView {
                 SearchBarView(searchText: $vm.searchText) {
                         vm.fetchSearchResults()
+                        vm.hideKeyboard()
                 }
                 
                 LazyVStack {

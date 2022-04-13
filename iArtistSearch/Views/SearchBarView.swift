@@ -18,6 +18,9 @@ struct SearchBarView: View {
                 .onTapGesture {
                     searchText = ""
                 }
+                .onSubmit {
+                    action()
+                }
             Button() {
                 action()
             } label: {

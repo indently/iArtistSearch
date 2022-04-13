@@ -26,9 +26,12 @@ extension ContentView {
             fetchSearchResults()
         }
         
+        func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+        
         // Sorts results alphabetically
         func sortResultsAlphabetically() {
-            
             withAnimation {
                 if self.sortResults == "aA" {
                     self.sortResults = "Aa"
