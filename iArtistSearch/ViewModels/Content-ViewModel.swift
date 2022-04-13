@@ -63,8 +63,7 @@ extension ContentView {
                     withAnimation {
                         self.searchResults = data.results
                         self.apiState = .finished
-                    }
-                    
+                    }                    
                     
                     if self.searchResults.isEmpty {
                         self.errorMessage = "There were no results..."
