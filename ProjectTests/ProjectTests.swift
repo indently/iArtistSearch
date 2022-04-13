@@ -14,6 +14,4 @@ class ProjectTests: XCTestCase {
         let result = formatDate(date: date)
         XCTAssertEqual(result, "2 apr 2007")
     }
-
-
 }
