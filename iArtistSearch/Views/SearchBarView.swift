@@ -15,9 +15,7 @@ struct SearchBarView: View {
         HStack(spacing: 20) {
             TextField("Search for something here", text: $searchText)
                 .textFieldStyle(.roundedBorder)
-                .onTapGesture {
-                    searchText = ""
-                }
+                .disableAutocorrection(true)
                 .onSubmit {
                     action()
                 }
