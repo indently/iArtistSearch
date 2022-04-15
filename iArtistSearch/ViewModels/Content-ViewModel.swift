@@ -22,6 +22,7 @@ extension ContentView {
         @Published var displayingError = false
         @Published var errorMessage: String = ""
         @Published var sortResults = "aA"
+        
         private let animationDelay = 0.5
         private let sf = SearchFormatter()
         
