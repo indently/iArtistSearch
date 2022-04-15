@@ -15,7 +15,7 @@ final class SearchFormatter {
     func formatSearchString(text: String) -> String {
         let trimmedSearch = text.trimmingCharacters(in: .whitespacesAndNewlines)
         let formattedSearch = trimmedSearch.replacingOccurrences(of: " ", with: "+")
-        
+
         return formattedSearch
     }
 }

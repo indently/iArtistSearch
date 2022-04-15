@@ -34,16 +34,13 @@ extension Bundle {
             
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard let data = data else {
-                    // If there is an error, return the error.
                     if let error = error { failure(error) }
                     return }
                 
                 do {
                     let serverData = try JSONDecoder().decode(T.self, from: data)
-                    // Return the data successfully from the server
-                    completion((serverData))
+                    completion(serverData)
                 } catch {
-                    // If there is an error, return the error.
                     failure(error)
                 }
             }.resume()

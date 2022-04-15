@@ -29,10 +29,6 @@ extension ContentView {
             fetchSearchResults()
         }
         
-        func hideKeyboard() {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
-        
         // Sorts results alphabetically
         func sortResultsAlphabetically() {
             withAnimation {
@@ -51,7 +47,6 @@ extension ContentView {
                 }
             }
         }
-        
         
         func fetchSearchResults(limit: Int = 25) {
             // Make sure the user isn't searching nothing
@@ -80,10 +75,7 @@ extension ContentView {
                         self.apiState = .finished
                     }
                     
-                    if self.searchResults.isEmpty {
-                        self.errorMessage = "There were no results..."
-                        self.displayingError = true
-                    }
+                    self.handleEmptyResults(results: self.searchResults)
                 }
             } failure: { error in
                 DispatchQueue.main.async {
@@ -97,10 +89,22 @@ extension ContentView {
             self.searchResults = []
         }
         
+        private func handleEmptyResults(results: [Search]) {
+            if results.isEmpty {
+                self.errorMessage = "There were no results..."
+                self.displayingError = true
+            }
+        }
+        
         private func handleError(error: Error) {
             self.errorMessage = error.localizedDescription
             self.displayingError = true
             self.apiState = .finished
         }
+        
+        func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+        
     }
 }

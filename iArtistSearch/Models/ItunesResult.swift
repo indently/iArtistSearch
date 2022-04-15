@@ -25,7 +25,7 @@ struct Search : Codable, Identifiable, Equatable {
     let discCount, discNumber, trackCount, trackNumber: Int
     let trackTimeMillis: Int
     let country, currency, primaryGenreName: String
-    let isStreamable: Bool
+    let isStreamable: Bool?
     
     static var sampleSearch: Search = ItunesResult.sampleResults.results[0]
 }
