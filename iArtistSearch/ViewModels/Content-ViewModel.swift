@@ -17,10 +17,12 @@ extension ContentView {
         @Published var searchText: String = "linken park"
         @Published var apiState: LoadingState = .finished
         @Published var searchResults = [Search]()
+        @Published var cachedResults = [Search]()
         
         @Published var displayingError = false
         @Published var errorMessage: String = ""
         @Published var sortResults = "aA"
+        private let animationDelay = 0.5
         
         init() {
             fetchSearchResults()
@@ -33,15 +35,22 @@ extension ContentView {
         // Sorts results alphabetically
         func sortResultsAlphabetically() {
             withAnimation {
-                if self.sortResults == "aA" {
-                    self.sortResults = "Aa"
-                    self.searchResults = searchResults.sorted { $0.trackName.lowercased() < $1.trackName.lowercased() }
-                } else if self.sortResults == "Aa" {
-                    self.sortResults = "aA"
-                    self.searchResults = searchResults.sorted { $0.trackName.lowercased() > $1.trackName.lowercased() }
+                self.cachedResults = self.searchResults
+                self.searchResults = []
+                
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
+                    withAnimation {
+                        if self.sortResults == "aA" {
+                            self.sortResults = "Aa"
+                            self.searchResults = self.cachedResults.sorted { $0.trackName.lowercased() < $1.trackName.lowercased() }
+                        } else if self.sortResults == "Aa" {
+                            self.sortResults = "aA"
+                            self.searchResults = self.cachedResults.sorted { $0.trackName.lowercased() > $1.trackName.lowercased() }
+                        }
+                    }
                 }
             }
-            
         }
         
         func fetchSearchResults(limit: Int = 25) {
@@ -64,13 +73,21 @@ extension ContentView {
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
                 DispatchQueue.main.async {
                     withAnimation {
-                        self.searchResults = data.results
-                        self.apiState = .finished
-                    }                    
-                    
-                    if self.searchResults.isEmpty {
-                        self.errorMessage = "There were no results..."
-                        self.displayingError = true
+                        self.cachedResults = self.searchResults
+                        self.searchResults = []
+                        
+                        // Add a delay to create a smooth animation
+                        DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
+                            withAnimation {
+                                self.searchResults = data.results
+                                self.apiState = .finished
+                            }
+                            
+                            if self.searchResults.isEmpty {
+                                self.errorMessage = "There were no results..."
+                                self.displayingError = true
+                            }
+                        }
                     }
                 }
             } failure: { error in

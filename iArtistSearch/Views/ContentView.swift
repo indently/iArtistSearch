@@ -12,35 +12,41 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                SearchBarView(searchText: $vm.searchText) {
-                        vm.fetchSearchResults()
-                        vm.hideKeyboard()
+            ZStack {
+                if vm.apiState == .loading {
+                    ProgressView()
                 }
                 
-                LazyVStack {
-                    ForEach(vm.searchResults) { result in
-                        NavigationLink(destination: DescriptionView(search: result)) {
-                            VStack(alignment: .leading) {
-                                ItemView(search: result)
-                                Divider()
+                ScrollView {
+                    SearchBarView(searchText: $vm.searchText) {
+                            vm.fetchSearchResults()
+                            vm.hideKeyboard()
+                    }
+                    LazyVStack {
+                        ForEach(vm.searchResults) { result in
+                            NavigationLink(destination: DescriptionView(search: result)) {
+                                VStack(alignment: .leading) {
+                                    ItemView(search: result)
+                                    Divider()
+                                }
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
+                            .buttonStyle(PlainButtonStyle())
+                            .animation(.spring(), value: vm.searchResults)
+                            .transition(.scale)
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        .transition(.scale)
                     }
                 }
-            }
-            .navigationTitle("iTunes Search")
-            .alert("\(vm.errorMessage)", isPresented: $vm.displayingError) {
-                Button("Got it!") {
-                    // Add code here to fix the issue.
+                .navigationTitle("iTunes Search")
+                .alert("\(vm.errorMessage)", isPresented: $vm.displayingError) {
+                    Button("Got it!") {
+                        // Add code here to fix the issue.
+                    }
                 }
-            }
-            .toolbar {
-                ToolbarItem {
-                    Button(vm.sortResults, action: vm.sortResultsAlphabetically)
+                .toolbar {
+                    ToolbarItem {
+                        Button(vm.sortResults, action: vm.sortResultsAlphabetically)
+                    }
                 }
             }
         }
