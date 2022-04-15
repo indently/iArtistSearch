@@ -23,6 +23,7 @@ extension ContentView {
         @Published var errorMessage: String = ""
         @Published var sortResults = "aA"
         private let animationDelay = 0.5
+        private let sf = SearchFormatter()
         
         init() {
             fetchSearchResults()
@@ -35,9 +36,7 @@ extension ContentView {
         // Sorts results alphabetically
         func sortResultsAlphabetically() {
             withAnimation {
-                self.cachedResults = self.searchResults
-                self.searchResults = []
-                
+                self.cacheResults()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
                     withAnimation {
@@ -53,50 +52,55 @@ extension ContentView {
             }
         }
         
+        
         func fetchSearchResults(limit: Int = 25) {
-            self.apiState = .loading
-            
             // Make sure the user isn't searching nothing
-            if self.searchText == "" {
+            guard sf.isValidSearch(text: self.searchText) else {
                 self.displayingError = true
                 self.errorMessage = "Please insert a song / artist name."
-                return
+                return }
+            
+            // Cache results
+            withAnimation {
+                self.cacheResults()
             }
             // Formats the string the user entered
-            let trimmedSearch = self.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-            let locSearch = trimmedSearch.replacingOccurrences(of: " ", with: "+")
+            let search = sf.formatSearchString(text: self.searchText)
             
             // Prepares the URL for the request
-            let url = "https://itunes.apple.com/search?term=\(locSearch)&entity=musicTrack&country=dk&limit=\(limit)"
+            let url = "https://itunes.apple.com/search?term=\(search)&entity=musicTrack&country=dk&limit=\(limit)"
             
+            self.apiState = .loading
             // Attempts to create an API request, otherwise returns a failure.
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
-                DispatchQueue.main.async {
+                // Add a delay to create a smooth animation
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
                     withAnimation {
-                        self.cachedResults = self.searchResults
-                        self.searchResults = []
-                        
-                        // Add a delay to create a smooth animation
-                        DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
-                            withAnimation {
-                                self.searchResults = data.results
-                                self.apiState = .finished
-                            }
-                            
-                            if self.searchResults.isEmpty {
-                                self.errorMessage = "There were no results..."
-                                self.displayingError = true
-                            }
-                        }
+                        self.searchResults = data.results
+                        self.apiState = .finished
+                    }
+                    
+                    if self.searchResults.isEmpty {
+                        self.errorMessage = "There were no results..."
+                        self.displayingError = true
                     }
                 }
             } failure: { error in
                 DispatchQueue.main.async {
-                    self.errorMessage = error.localizedDescription
-                    self.displayingError = true
-                    self.apiState = .finished
+                    self.handleError(error: error)
                 }
             }
+        }
+        
+        private func cacheResults() {
+            self.cachedResults = self.searchResults
+            self.searchResults = []
+        }
+        
+        private func handleError(error: Error) {
+            self.errorMessage = error.localizedDescription
+            self.displayingError = true
+            self.apiState = .finished
         }
     }
 }
