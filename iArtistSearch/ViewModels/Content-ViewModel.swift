@@ -39,10 +39,10 @@ extension ContentView {
                     withAnimation {
                         if self.sortResults == "aA" {
                             self.sortResults = "Aa"
-                            self.searchResults = self.cachedResults.sorted { $0.trackName.lowercased() < $1.trackName.lowercased() }
-                        } else if self.sortResults == "Aa" {
+                            self.searchResults = self.sf.sortAlphabeticallyUp(items: self.cachedResults)
+                        } else {
                             self.sortResults = "aA"
-                            self.searchResults = self.cachedResults.sorted { $0.trackName.lowercased() > $1.trackName.lowercased() }
+                            self.searchResults = self.sf.sortAlphabeticallyDown(items: self.cachedResults)
                         }
                     }
                 }
@@ -67,6 +67,8 @@ extension ContentView {
             let url = "https://itunes.apple.com/search?term=\(search)&entity=musicTrack&country=dk&limit=\(limit)"
             
             self.apiState = .loading
+            
+            // Make the API requests
             Bundle.main.fetchData(url: url, model: ItunesResult.self) { result in
                 switch(result) {
                 case .success(let data):

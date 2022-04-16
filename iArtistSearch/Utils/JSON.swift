@@ -12,7 +12,6 @@ enum URLError: Error {
 }
 
 extension Bundle {
-    
     // Used to decode local JSON files
     func decode<T: Decodable>(file: String) -> T {
         guard let url = self.url(forResource: file, withExtension: nil) else {
@@ -32,6 +31,7 @@ extension Bundle {
         return loadedData
     }
     
+    // Generic function to create api requests
     func fetchData<T: Decodable>(url: String, model: T.Type, completion: @escaping (Result<T, Error>) -> ()) {
         guard let url = URL(string: url) else {
             completion(.failure(URLError.urlError))
