@@ -21,7 +21,7 @@ extension ContentView {
         
         @Published var displayingError = false
         @Published var errorMessage: String = ""
-        @Published var sortResults = "aA"
+        @Published var sortResults = "aZ"
         
         private let animationDelay = 0.5
         private let sf = SearchFormatter()
@@ -37,11 +37,11 @@ extension ContentView {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
                     withAnimation {
-                        if self.sortResults == "aA" {
-                            self.sortResults = "Aa"
+                        if self.sortResults == "aZ" {
+                            self.sortResults = "Za"
                             self.searchResults = self.sf.sortAlphabeticallyUp(items: self.cachedResults)
                         } else {
-                            self.sortResults = "aA"
+                            self.sortResults = "aZ"
                             self.searchResults = self.sf.sortAlphabeticallyDown(items: self.cachedResults)
                         }
                     }
