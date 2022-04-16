@@ -38,10 +38,12 @@ struct ContentView: View {
                     }
                 }
                 .navigationTitle("iTunes Search")
-                .alert("\(vm.errorMessage)", isPresented: $vm.displayingError) {
+                .alert("Something went wrong...", isPresented: $vm.displayingError) {
                     Button("Got it!") {
                         // Add code here to fix the issue.
                     }
+                } message: {
+                    Text("\(vm.errorMessage)")
                 }
                 .toolbar {
                     ToolbarItem {
