@@ -14,7 +14,7 @@ enum LoadingState {
 
 extension ContentView {
     final class ViewModel: ObservableObject {
-        @Published var searchText: String = "é"
+        @Published var searchText: String = "linken park"
         @Published var apiState: LoadingState = .finished
         @Published var searchResults = [Search]()
         @Published var cachedResults = [Search]()
