@@ -14,8 +14,9 @@ final class SearchFormatter {
     
     func formatSearchString(text: String) -> String {
         let trimmedSearch = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        let formattedSearch = trimmedSearch.replacingOccurrences(of: " ", with: "+")
-
+        let escapedString = trimmedSearch.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let formattedSearch = escapedString?.replacingOccurrences(of: " ", with: "+") ?? ""
+        
         return formattedSearch
     }
 }

@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum URLError: Error {
+    case urlError
+}
+
 extension Bundle {
     
     // Used to decode local JSON files
@@ -28,21 +32,22 @@ extension Bundle {
         return loadedData
     }
     
-    // Used to fetch API data via Generics
-    func fetchData<T: Decodable>(url: String, model: T.Type, completion:@escaping(T) -> (), failure:@escaping(Error) -> ()) {
-            guard let url = URL(string: url) else { return }
+    func fetchData<T: Decodable>(url: String, model: T.Type, completion: @escaping (Result<T, Error>) -> ()) {
+        guard let url = URL(string: url) else {
+            completion(.failure(URLError.urlError))
+            return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                if let error = error { completion(.failure(error)) }
+                return }
             
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                guard let data = data else {
-                    if let error = error { failure(error) }
-                    return }
-                
-                do {
-                    let serverData = try JSONDecoder().decode(T.self, from: data)
-                    completion(serverData)
-                } catch {
-                    failure(error)
-                }
-            }.resume()
-    }
+            do {
+                let serverData = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(serverData))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+}
 }

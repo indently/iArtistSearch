@@ -14,7 +14,7 @@ enum LoadingState {
 
 extension ContentView {
     final class ViewModel: ObservableObject {
-        @Published var searchText: String = "linken park"
+        @Published var searchText: String = "é"
         @Published var apiState: LoadingState = .finished
         @Published var searchResults = [Search]()
         @Published var cachedResults = [Search]()
@@ -67,20 +67,21 @@ extension ContentView {
             let url = "https://itunes.apple.com/search?term=\(search)&entity=musicTrack&country=dk&limit=\(limit)"
             
             self.apiState = .loading
-            // Attempts to create an API request, otherwise returns a failure.
-            Bundle.main.fetchData(url: url, model: ItunesResult.self) { data in
-                // Add a delay to create a smooth animation
-                DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
-                    withAnimation {
-                        self.searchResults = data.results
-                        self.apiState = .finished
+            Bundle.main.fetchData(url: url, model: ItunesResult.self) { result in
+                switch(result) {
+                case .success(let data):
+                    // Add a delay to create a smooth animation
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
+                        withAnimation {
+                            self.searchResults = data.results
+                            self.apiState = .finished
+                        }
+                        self.handleEmptyResults(results: self.searchResults)
                     }
-                    
-                    self.handleEmptyResults(results: self.searchResults)
-                }
-            } failure: { error in
-                DispatchQueue.main.async {
-                    self.handleError(error: error)
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.handleError(error: error)
+                    }
                 }
             }
         }
@@ -106,6 +107,5 @@ extension ContentView {
         func hideKeyboard() {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        
     }
 }
