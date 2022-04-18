@@ -30,25 +30,24 @@ extension ContentView {
             fetchSearchResults()
         }
         
-        // Sorts results alphabetically
+        // MARK: - Sorting Function
         func sortResultsAlphabetically() {
-            withAnimation {
-                self.cacheResults()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
-                    withAnimation {
-                        if self.sortResults == "aZ" {
-                            self.sortResults = "Za"
-                            self.searchResults = self.sf.sortAlphabeticallyUp(items: self.cachedResults)
-                        } else {
-                            self.sortResults = "aZ"
-                            self.searchResults = self.sf.sortAlphabeticallyDown(items: self.cachedResults)
-                        }
+            withAnimation { self.cacheResults() }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
+                withAnimation {
+                    if self.sortResults == "aZ" {
+                        self.sortResults = "Za"
+                        self.searchResults = self.sf.sortAlphabeticallyUp(items: self.cachedResults)
+                    } else {
+                        self.sortResults = "aZ"
+                        self.searchResults = self.sf.sortAlphabeticallyDown(items: self.cachedResults)
                     }
                 }
             }
         }
         
+        // MARK: - API Fetch Request
         func fetchSearchResults(limit: Int = 25) {
             // Make sure the user isn't searching nothing
             guard sf.isValidSearch(text: self.searchText) else {
@@ -56,14 +55,11 @@ extension ContentView {
                 self.errorMessage = "Please insert a song / artist name."
                 return }
             
-            // Cache results
-            withAnimation {
-                self.cacheResults()
-            }
+            withAnimation { self.cacheResults() }
+            
             // Formats the string the user entered
             let search = sf.formatSearchString(text: self.searchText)
             
-            // Prepares the URL for the request
             let url = "https://itunes.apple.com/search?term=\(search)&entity=musicTrack&country=dk&limit=\(limit)"
             
             self.apiState = .loading

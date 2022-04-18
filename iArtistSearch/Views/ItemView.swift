@@ -13,27 +13,29 @@ struct ItemView: View {
     
     var body: some View {
         HStack() {
+            // MARK: - Artwork
             VStack {
-            AsyncImage(url: URL(string: search.artworkUrl100)!) { image in
-                if let image = image {
-                    image
-                        .resizable()
-                        .scaledToFit()
+                AsyncImage(url: URL(string: search.artworkUrl100)!) { image in
+                    if let image = image {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: dimensions, height: dimensions)
+                    }
+                } placeholder: {
+                    ProgressView()
                         .frame(width: dimensions, height: dimensions)
+                    
                 }
-            } placeholder: {
-                ProgressView()
-                    .frame(width: dimensions, height: dimensions)
-                
-            }
-            .background(.thinMaterial)
-            .cornerRadius(10)
+                .background(.thinMaterial)
+                .cornerRadius(10)
                 Text("\(formatDate(date: search.releaseDate))")
                     .font(.subheadline)
             }
             
             Spacer()
             
+            // MARK: - Artist Details
             VStack(alignment: .trailing) {
                 Text("\(search.trackName)")
                     .font(.subheadline)

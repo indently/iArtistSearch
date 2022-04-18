@@ -25,7 +25,7 @@ class UtilsTests: XCTestCase {
         XCTAssertEqual(actual, expected)
     }
     
-    func test_validSearchString_returnsTrue() {
+    func test_validSearchString_returnsTrue() {
         let sut = SearchFormatter()
         
         let actual = sut.isValidSearch(text: "Hello")
