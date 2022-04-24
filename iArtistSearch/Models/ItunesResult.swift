@@ -15,12 +15,11 @@ struct ItunesResult : Codable {
     static var sampleResults: ItunesResult = Bundle.main.decode(file: "Search.json")
 }
 
-struct Search : Codable, Identifiable, Equatable {
-    let id = UUID()
+struct Search : Codable, Equatable {
     let artistName, collectionName, trackName, collectionCensoredName: String
     let artistViewUrl, collectionViewUrl, trackViewUrl: String
     let previewUrl: String
-    let artworkUrl30, artworkUrl60, artworkUrl100: String
+    let artworkUrl100: String
     let releaseDate: String
     let discCount, discNumber, trackCount, trackNumber: Int
     let trackTimeMillis: Int
@@ -29,6 +28,5 @@ struct Search : Codable, Identifiable, Equatable {
     
     static var sampleSearch: Search = ItunesResult.sampleResults.results[0]
 }
-
 
 

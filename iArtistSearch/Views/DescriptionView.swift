@@ -36,7 +36,7 @@ struct DescriptionView: View {
             List {
                 Text("**Title**: \(search.trackName)")
                 Text("**Artist**: \(search.artistName)")
-                Text("**Release Date**: \(formatDate(date: search.releaseDate))")
+                Text("**Release Date**: \( search.releaseDate.formatZTime())")
                 Text("**Length**: \(search.trackTimeMillis/1000/60) minutes")
                 Text("**Genre**: \(search.primaryGenreName)")
             }

@@ -19,14 +19,17 @@ struct ContentView: View {
                 
                 ScrollView {
                     SearchBarView(searchText: $vm.searchText) {
-                            vm.fetchSearchResults()
-                            vm.hideKeyboard()
+                        vm.fetchSearchResults()
+                        vm.hideKeyboard()
                     }
                     LazyVStack {
-                        ForEach(vm.searchResults) { result in
+                        ForEach(vm.searchResults, id: \.trackViewUrl) { result in
                             NavigationLink(destination: DescriptionView(search: result)) {
                                 VStack(alignment: .leading) {
                                     ItemView(search: result)
+                                        .onAppear {
+                                            print("Loaded: \(result.trackName)")
+                                        }
                                     Divider()
                                 }
                                 .padding(.horizontal)

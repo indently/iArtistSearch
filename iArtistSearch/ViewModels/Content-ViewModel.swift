@@ -38,10 +38,10 @@ extension ContentView {
                 withAnimation {
                     if self.sortResults == "aZ" {
                         self.sortResults = "Za"
-                        self.searchResults = self.sf.sortAlphabeticallyUp(items: self.cachedResults)
+                        self.searchResults = self.cachedResults.sortAlphabeticallyUp()
                     } else {
                         self.sortResults = "aZ"
-                        self.searchResults = self.sf.sortAlphabeticallyDown(items: self.cachedResults)
+                        self.searchResults = self.cachedResults.sortAlphabeticallyDown()
                     }
                 }
             }
@@ -63,43 +63,43 @@ extension ContentView {
             let url = "https://itunes.apple.com/search?term=\(search)&entity=musicTrack&country=dk&limit=\(limit)"
             
             self.apiState = .loading
-            
-            // Make the API requests
-            Bundle.main.fetchData(url: url, model: ItunesResult.self) { result in
-                switch(result) {
-                case .success(let data):
-                    // Add a delay to create a smooth animation
-                    DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
-                        withAnimation {
-                            self.searchResults = data.results
-                            self.apiState = .finished
-                        }
-                        self.handleEmptyResults(results: self.searchResults)
-                    }
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        self.handleError(error: error)
-                    }
+        
+            Task {
+                do {
+                    let results = try await fetchSearch(url: url, model: ItunesResult.self)
+                    setResults(results: results.results)
+                } catch {
+                    handleError(error: error)
                 }
             }
         }
         
+        private func setResults(results: [Search]) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDelay) {
+                withAnimation {
+                    self.searchResults = results
+                    self.apiState = .finished
+                }
+                self.handleEmptyResults(results: self.searchResults)
+            }
+        }
+        
         private func cacheResults() {
-            self.cachedResults = self.searchResults
-            self.searchResults = []
+            cachedResults = searchResults
+            searchResults = []
         }
         
         private func handleEmptyResults(results: [Search]) {
             if results.isEmpty {
-                self.errorMessage = "There were no results..."
-                self.displayingError = true
+                errorMessage = "There were no results..."
+                displayingError = true
             }
         }
         
         private func handleError(error: Error) {
-            self.errorMessage = error.localizedDescription
-            self.displayingError = true
-            self.apiState = .finished
+            errorMessage = error.localizedDescription
+            displayingError = true
+            apiState = .finished
         }
         
         func hideKeyboard() {

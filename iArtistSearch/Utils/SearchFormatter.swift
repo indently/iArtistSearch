@@ -19,12 +19,4 @@ final class SearchFormatter {
         
         return formattedSearch
     }
-    
-    func sortAlphabeticallyUp(items: [Search]) -> [Search] {
-        return items.sorted { $0.trackName.lowercased() < $1.trackName.lowercased() }
-    }
-    
-    func sortAlphabeticallyDown(items: [Search]) -> [Search] {
-        return items.sorted { $0.trackName.lowercased() > $1.trackName.lowercased() }
-    }
 }

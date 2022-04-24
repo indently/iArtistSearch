@@ -29,10 +29,9 @@ struct ItemView: View {
                 }
                 .background(.thinMaterial)
                 .cornerRadius(10)
-                Text("\(formatDate(date: search.releaseDate))")
+                Text("\(search.releaseDate.formatZTime())")
                     .font(.subheadline)
             }
-            
             Spacer()
             
             // MARK: - Artist Details
@@ -47,6 +46,7 @@ struct ItemView: View {
                 Text("\(search.trackTimeMillis/1000/60) min")
                     .font(.subheadline)
             }
+
         }
         .padding()
         .background(.thinMaterial)
