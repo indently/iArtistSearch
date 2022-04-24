@@ -8,7 +8,7 @@
 import Foundation
 import Swift
 
-//MARK: - Test Extension to sort Search items
+//MARK: - Test Extension to sort Search items.
 extension Array where Element == Search {
     func sortAlphabeticallyUp() -> [Search] {
         return self.sorted { $0.trackName.lowercased() < $1.trackName.lowercased() }
