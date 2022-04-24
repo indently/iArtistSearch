@@ -57,7 +57,7 @@ extension ContentView {
             
             withAnimation { self.cacheResults() }
             
-            // Formats the string the user entered
+            // Formats the string the user entered.
             let search = sf.formatSearchString(text: self.searchText)
             
             let url = "https://itunes.apple.com/search?term=\(search)&entity=musicTrack&country=dk&limit=\(limit)"
