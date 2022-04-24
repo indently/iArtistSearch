@@ -12,7 +12,7 @@ enum APIError: Error {
     case invalidURL
 }
 
-//MARK: - Generic function to create api requests asynchronously
+//MARK: - Generic function to create api requests asynchronously.
 func fetchSearch<T: Decodable>(url: String, model: T.Type) async throws -> T {
     guard let url = URL(string: url) else { throw APIError.invalidURL }
     
