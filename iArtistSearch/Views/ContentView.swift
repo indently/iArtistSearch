@@ -41,7 +41,7 @@ struct ContentView: View {
                     }
                 }
                 .navigationTitle("iTunes Search")
-                .alert("Something went wrong...", isPresented: $vm.displayingError) {
+                .alert("Error", isPresented: $vm.displayingError) {
                     Button("Got it!") {
                         // Add code here to fix the issue.
                     }
