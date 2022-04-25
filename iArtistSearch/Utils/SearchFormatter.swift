@@ -2,7 +2,7 @@
 //  SearchFormatter.swift
 //  iArtistSearch
 //
-//  Created by Federico on 15/04/2022.
+//  Created by Federico on 15/04/2022..
 //
 
 import Foundation
