@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  iArtistSearch
 //
-//  Created by Federico on 11/04/2022.
+//  Created by Federico on 11/04/2022..
 //
 
 import SwiftUI
